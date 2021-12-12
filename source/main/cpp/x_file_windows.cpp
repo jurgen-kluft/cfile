@@ -10,7 +10,7 @@
 
 #    include "xbase/x_runes.h"
 #    include "xbase/x_memory.h"
-#    include "xfileio/x_fileio.h"
+#    include "xfile/x_file.h"
 
 namespace xcore
 {
@@ -104,7 +104,7 @@ namespace xcore
             }
         }
 
-        file_handle_t file_open(char const* path, mode_t mode)
+        file_handle_t file_open(char const* path, file_mode_t mode)
         {
             // check
             assert_and_check_return_val(path, nullptr);

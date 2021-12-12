@@ -1,13 +1,10 @@
-#ifndef __XFILEIO_FILEIO_H__
-#define __XFILEIO_FILEIO_H__
+#ifndef __XFILE_FILE_PUBLIC_H__
+#define __XFILE_FILE_PUBLIC_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
 #endif
 
-//==============================================================================
-// INCLUDES
-//==============================================================================
 #include "xbase/x_debug.h"
 
 namespace xcore
@@ -15,4 +12,4 @@ namespace xcore
 
 } // namespace xcore
 
-#endif ///< __XFILEIO_FILEIO_H__
+#endif ///< __XFILE_FILE_PUBLIC_H__

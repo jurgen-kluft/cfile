@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/jurgen-kluft/xcode"
-	xfileio "github.com/jurgen-kluft/xfileio/package"
+	xpkg "github.com/jurgen-kluft/xfile/package"
 )
 
 func main() {
 	xcode.Init()
-	xcode.Generate(xfileio.GetPackage())
+	xcode.Generate(xpkg.GetPackage())
 }

@@ -2,14 +2,14 @@
 #include "xbase/x_allocator.h"
 #include "xbase/x_console.h"
 
-#include "xfileio/x_fileio.h"
+#include "xfile/x_file.h"
 
 #include "xunittest/xunittest.h"
 #include "xunittest/private/ut_ReportAssert.h"
 
 UNITTEST_SUITE_LIST(xFileIOUnitTest);
 
-UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_xfileio);
+UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_xfile);
 
 namespace xcore
 {
