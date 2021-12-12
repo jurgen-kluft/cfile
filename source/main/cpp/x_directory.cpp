@@ -37,7 +37,7 @@ namespace xcore
         bool directory_create(char const* path)
         {
             // check
-            assert_and_check_return_val(path, tb_false);
+            assert_and_check_return_val(path, false);
 
             // the absolute path
             wchar full[cPathMaxN];
@@ -75,15 +75,15 @@ namespace xcore
         }
 
 
-        tb_size_t tb_directory_home(tb_char_t* path, tb_size_t maxn)
+        size_t directory_home(char_t* path, size_t maxn)
         {
             // check
-            tb_assert_and_check_return_val(path && maxn, 0);
+            assert_and_check_return_val(path && maxn, 0);
 
             // the home directory
-            tb_bool_t   ok = tb_false;
-            tb_handle_t pidl = tb_null;
-            tb_wchar_t  home[TB_PATH_MAXN] = {0};
+            bool_t   ok = false;
+            handle_t pidl = null;
+            wchar_t  home[TB_PATH_MAXN] = {0};
             do
             {
                 /* get the local appdata folder location
@@ -91,23 +91,23 @@ namespace xcore
                 * CSIDL_APPDATA 0x1a
                 * CSIDL_LOCAL_APPDATA 0x1c
                 */
-                if (S_OK != tb_shell32()->SHGetSpecialFolderLocation(tb_null, 0x1c /* CSIDL_LOCAL_APPDATA */, &pidl)) break;
-                tb_check_break(pidl);
+                if (S_OK != shell32()->SHGetSpecialFolderLocation(null, 0x1c /* CSIDL_LOCAL_APPDATA */, &pidl)) break;
+                check_break(pidl);
 
                 // get the home directory
-                if (!tb_shell32()->SHGetPathFromIDListW(pidl, home)) break;
+                if (!shell32()->SHGetPathFromIDListW(pidl, home)) break;
 
                 // ok
-                ok = tb_true;
+                ok = true;
 
             } while (0);
 
             // exit pidl
             if (pidl) GlobalFree(pidl);
-            pidl = tb_null;
+            pidl = null;
 
             // wtoa
-            xsize_t size = ok? tb_wtoa(path, home, maxn) : 0;
+            xsize_t size = ok? wtoa(path, home, maxn) : 0;
 
             // ok?
             return size != -1? size : 0;
