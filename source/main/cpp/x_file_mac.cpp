@@ -11,19 +11,10 @@
 #    include <unistd.h>
 #    include <errno.h>
 
-#    ifdef CONFIG_POSIX_HAVE_COPYFILE
-#        include <copyfile.h>
-#    endif
-#    ifdef CONFIG_POSIX_HAVE_SENDFILE
-#        include <sys/sendfile.h>
-#    endif
-
 #    include "xbase/x_integer.h"
 #    include "xbase/x_memory.h"
 #    include "xbase/x_runes.h"
 #    include "xfile/private/x_file.h"
-#    include "xfile/private/x_path.h"
-#    include "xfile/private/x_assert.h"
 
 namespace xcore
 {
@@ -40,30 +31,28 @@ namespace xcore
             if (!path.is_valid())
                 return file_handle_t();
 
-            // the full path
-            char full[cMaxPath];
-            path = path_absolute(path, full, cMaxPath);
-            assert_and_check_return_val(path, file_handle_t());
+            if (!path.is_valid())
+                return file_handle_t();
 
             // flags
             u64 flags = 0;
-            if (mode & MODE_RO)
+            if (mode & FILE_MODE_RO)
                 flags |= O_RDONLY;
-            else if (mode & MODE_WO)
+            else if (mode & FILE_MODE_WO)
                 flags |= O_WRONLY;
-            else if (mode & MODE_RW)
+            else if (mode & FILE_MODE_RW)
                 flags |= O_RDWR;
 
-            if (mode & MODE_CREAT)
+            if (mode & FILE_MODE_CREAT)
                 flags |= O_CREAT;
-            if (mode & MODE_APPEND)
+            if (mode & FILE_MODE_APPEND)
                 flags |= O_APPEND;
-            if (mode & MODE_TRUNC)
+            if (mode & FILE_MODE_TRUNC)
                 flags |= O_TRUNC;
 
-                // dma mode, no cache
-#    ifdef TB_CONFIG_OS_LINUX
-            if (mode & TB_FILE_MODE_DIRECT)
+            // dma mode, no cache
+#    ifdef PLATFORM_LINUX
+            if (mode & FILE_MODE_DIRECT)
                 flags |= O_DIRECT;
 #    endif
 
@@ -72,24 +61,27 @@ namespace xcore
 
             // modes
             u64 modes = 0;
-            if (mode & MODE_CREAT)
+            if (mode & FILE_MODE_CREAT)
             {
                 // 0644: -rw-r--r--
                 modes = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
             }
 
+            // if path.m_type != utf8::TYPE
+            // convert to utf8?
+
             // open it, @note need absolute path
-            s64 fd = open(path, flags, modes);
-            if (fd < 0 && (mode & MODE_CREAT) && (errno != EPERM && errno != EACCES))
+            s64 fd = open(path.m_runes.m_ascii.m_str, flags, modes);
+            if (fd < 0 && (mode & FILE_MODE_CREAT) && (errno != EPERM && errno != EACCES))
             {
-#    ifndef TB_CONFIG_MICRO_ENABLE
                 // open it again after creating the file directory
-                char dir[cMaxPath];
-                if (directory_create(path_directory(path, dir, sizeof(dir))))
-                    fd = open(path, flags, modes);
-#    endif
+                //char dir[cMaxPath];
+                //if (directory_create(path_directory(path, dir, sizeof(dir))))
+                //    fd = open(path, flags, modes);
             }
-            check_return_val(fd >= 0, file_handle_t());
+
+            if (!(fd >= 0))
+                return file_handle_t();
 
             // ok?
             return fd2fh(fd);
@@ -146,7 +138,8 @@ namespace xcore
         u64 file_size(file_handle_t file)
         {
             // check
-            assert_and_check_return_val(file.m_handle, 0);
+            if (file.m_handle==nullptr)
+                return 0;
 
             // the file size
             u64         size = 0;
