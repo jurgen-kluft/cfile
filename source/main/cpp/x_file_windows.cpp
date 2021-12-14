@@ -254,7 +254,7 @@ namespace xcore
         }
 
 
-        s64 file_seek(file_handle_t& file, s64 offset, u64 mode)
+        s64 file_seek(file_handle_t& file, s64 offset, seek_mode_t mode)
         {
             // check
             if (file.m_handle == nullptr)
@@ -274,7 +274,7 @@ namespace xcore
                 return -1;
 
             // the file size
-            return file_seek(file, (s64)0, SEEK_CUR);
+            return file_seek(file, (s64)0, SEEK_MODE_CUR);
         }
 
         s64 file_size(file_handle_t& file)

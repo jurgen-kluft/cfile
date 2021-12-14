@@ -116,6 +116,63 @@ namespace xcore
             return write(fh2fd(file), data, size);
         }
 
+
+		s64 file_pread(file_handle_t& file, xbyte* data, u64 size, s64 offset)
+		{
+			// check
+			if (file.m_handle == nullptr || data == nullptr)
+				return -1;
+			if (size == 0)
+				return 0;
+
+			// save offset
+			s64 current = file_offset(file);
+			if (!(current >= 0))
+				return -1;
+
+			// seek it
+			if (current != offset && file_seek(file, offset, SEEK_MODE_BEG) != offset)
+				return -1;
+
+			// read it
+			s64 real = file_read(file, data, size);
+
+			// restore offset
+			if (current != offset && file_seek(file, current, SEEK_MODE_BEG) != current)
+				return -1;
+
+			// ok
+			return real;
+		}
+
+		s64 file_pwrite(file_handle_t& file, xbyte const* data, u64 size, s64 offset)
+		{
+			// check
+			if (file.m_handle == nullptr || data == nullptr)
+				return -1;
+			if (size == 0)
+				return 0;
+
+			// save offset
+			s64 current = file_offset(file);
+			if (!(current >= 0))
+				return -1;
+
+			// seek it
+			if (current != offset && file_seek(file, offset, SEEK_MODE_BEG) != offset)
+				return -1;
+
+			// write it
+			s64 real = file_write(file, data, size);
+
+			// restore offset
+			if (current != offset && file_seek(file, current, SEEK_MODE_BEG) != current)
+				return -1;
+
+			// ok
+			return real;
+		}
+ 
         s64 file_seek(file_handle_t& file, s64 offset, u64 mode)
         {
             // check
