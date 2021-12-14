@@ -14,7 +14,7 @@
 #    include "xbase/x_integer.h"
 #    include "xbase/x_memory.h"
 #    include "xbase/x_runes.h"
-#    include "xfile/private/x_file.h"
+#    include "xfile/x_file.h"
 
 namespace xcore
 {
@@ -95,6 +95,14 @@ namespace xcore
             bool ok = !close(fh2fd(file)) ? true : false;
             return ok;
         }
+
+		void file_flush(file_handle_t& file)
+		{
+			if (file.m_handle == nullptr)
+				return;
+
+			// flush?
+		}
 
         s64 file_read(file_handle_t& file, xbyte* data, u64 size)
         {
@@ -183,7 +191,7 @@ namespace xcore
             return lseek(fh2fd(file), offset, mode);
         }
 
-        s64 file_offset(file_handle_t& file)
+        s64 file_offset(file_handle_t file)
         {
             // check
             if (file.m_handle == nullptr)
@@ -192,7 +200,7 @@ namespace xcore
             return file_seek(file, (s64)0, SEEK_CUR);
         }
 
-        u64 file_size(file_handle_t file)
+        s64 file_size(file_handle_t file)
         {
             // check
             if (file.m_handle==nullptr)

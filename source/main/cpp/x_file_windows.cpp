@@ -10,7 +10,7 @@
 
 #    include "xbase/x_runes.h"
 #    include "xbase/x_memory.h"
-#    include "xfile/private/x_file.h"
+#    include "xfile/x_file.h"
 
 namespace xcore
 {
@@ -88,21 +88,29 @@ namespace xcore
 
             // init flag
             DWORD cflag = 0;
-            if (mode & FILE_MODE_CREAT)
+            if (mode & FILE_MODE_CREATE)
             {
-                // always create a new empty file
-                if (mode & FILE_MODE_TRUNC)
-                    cflag |= CREATE_ALWAYS;
-                // create or open and append file
-                else if (mode & FILE_MODE_APPEND)
-                    cflag |= OPEN_ALWAYS;
-                // create a new file only if file not exists
-                else
-                    cflag |= CREATE_NEW;
+				access |= GENERIC_WRITE;
+
+				if (mode & FILE_MODE_TRUNC) {
+					// always create a new empty file
+					cflag |= CREATE_ALWAYS;
+				}
+				else if (mode & FILE_MODE_APPEND) {
+					// create or open and append file
+					cflag |= OPEN_ALWAYS;
+				}
+				else {
+					// create a new file only if file not exists
+					cflag |= CREATE_NEW;
+				}
             }
-            // open and truncate an existing file
-            else if (mode & FILE_MODE_TRUNC)
-                cflag |= TRUNCATE_EXISTING;
+			else if (mode & FILE_MODE_TRUNC) {
+				// open and truncate an existing file
+				access |= GENERIC_WRITE;
+				cflag |= TRUNCATE_EXISTING;
+			}
+
             // open an existing file
             if (!cflag)
                 cflag |= OPEN_EXISTING;
@@ -115,7 +123,7 @@ namespace xcore
             {
                 // init file
                 file = CreateFileW((LPCWSTR)path.m_runes.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
-                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREAT))
+                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
                     mkdir(path.m_runes.m_utf16.m_str);
@@ -128,7 +136,7 @@ namespace xcore
             {
                 // init file
                 file = CreateFile((LPCSTR)path.m_runes.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
-                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREAT))
+                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
                     mkdir(path.m_runes.m_ascii.m_str);
@@ -170,6 +178,15 @@ namespace xcore
             // close it
             return CloseHandle((HANDLE)file.m_handle) ? true : false;
         }
+
+		void file_flush(file_handle_t& file)
+		{
+			if (file.m_handle == nullptr)
+				return;
+
+			// flush ?
+
+		}
 
         s64 file_read(file_handle_t& file, xbyte* data, u64 size)
         {
@@ -267,7 +284,7 @@ namespace xcore
             return SetFilePointerEx((HANDLE)file.m_handle, o, &p, (DWORD)mode) ? (s64)p.QuadPart : -1;
         }
 
-        s64 file_offset(file_handle_t& file)
+        s64 file_offset(file_handle_t file)
         {
             // check
             if (file.m_handle == nullptr)
@@ -277,7 +294,7 @@ namespace xcore
             return file_seek(file, (s64)0, SEEK_MODE_CUR);
         }
 
-        s64 file_size(file_handle_t& file)
+		s64 file_size(file_handle_t file)
         {
             // check
             if (file.m_handle == nullptr)

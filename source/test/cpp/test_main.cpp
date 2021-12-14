@@ -10,7 +10,8 @@
 
 UNITTEST_SUITE_LIST(xFileIOUnitTest);
 
-UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_xfile);
+UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_file);
+UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_file_stream);
 
 namespace xcore
 {
@@ -37,7 +38,7 @@ namespace xcore
 		alloc_t*			mAllocator;
 	public:
 						UnitTestAllocator(alloc_t* allocator)				{ mAllocator = allocator; }
-		virtual void*	Allocate(size_t size)								{ return mAllocator->allocate(size, 4); }
+		virtual void*	Allocate(size_t size)								{ return mAllocator->allocate((u32)size, 4); }
 		virtual size_t	Deallocate(void* ptr)								{ return mAllocator->deallocate(ptr); }
 	};
 

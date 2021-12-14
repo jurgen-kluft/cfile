@@ -3,24 +3,92 @@
 #include "xbase/x_memory.h"
 
 #include "xfile/private/x_file.h"
-//#include "xfile/x_stream.h"
+#include "xfile/x_file.h"
 
 namespace xcore
 {
-    namespace xfile
-    {
-        class stream_t
-        {
-        public:
-            bool open(const char* filename, file_mode_t mode);
-            bool close();
-            u64  read(xbyte* buffer, u64 size);
-            u64  write(xbyte const* buffer, u64 size);
-            bool seek();
+	enum file_caps_t
+	{
+		FILE_CAPS_CAN_WRITE = 1,
+		FILE_CAPS_CAN_SEEK = 2,
+	};
 
-            bool is_open() const;
-            bool can_write() const;
-        };
-    }
+	bool file_stream_t::open(crunes_t const& filepath, file_mode_t mode)
+	{
+		m_filehandle = xfile::file_open(filepath, mode);
+		return m_filehandle.m_handle != nullptr;
+	}
+
+	bool file_stream_t::isOpen() const
+	{
+		return false;
+	}
+
+	file_stream_t::file_stream_t() 
+		: m_filehandle()
+		, m_caps(0)
+	{
+
+	}
+
+	file_stream_t& file_stream_t::operator=(const file_stream_t& fs)
+	{
+		return *this;
+	}
+
+	bool file_stream_t::vcanSeek() const
+	{
+		return true;
+	}
+
+	bool file_stream_t::vcanRead() const
+	{
+		return m_filehandle.m_handle != nullptr;
+	}
+
+	bool file_stream_t::vcanWrite() const
+	{
+		return (m_caps & FILE_CAPS_CAN_WRITE) == FILE_CAPS_CAN_WRITE;
+	}
+
+	void file_stream_t::vflush()
+	{
+		xfile::file_flush(m_filehandle);
+	}
+
+	void file_stream_t::vclose()
+	{
+		xfile::file_close(m_filehandle);
+	}
+
+	u64  file_stream_t::vgetLength() const
+	{
+		return xfile::file_size(m_filehandle);
+	}
+
+	void file_stream_t::vsetLength(u64 length)
+	{
+		xfile::file_seek(m_filehandle, length, SEEK_MODE_BEG);
+	}
+
+	s64  file_stream_t::vsetPos(s64 pos)
+	{
+		return xfile::file_seek(m_filehandle, pos, SEEK_MODE_BEG);
+	}
+
+	s64  file_stream_t::vgetPos() const
+	{
+		return xfile::file_offset(m_filehandle);
+	}
+
+	s64  file_stream_t::vread(xbyte* buffer, s64 count)
+	{
+		return xfile::file_read(m_filehandle, buffer, count);
+	}
+
+	s64  file_stream_t::vwrite(const xbyte* buffer, s64 count)
+	{
+		return xfile::file_write(m_filehandle, buffer, count);
+	}
 
 } // namespace xcore
