@@ -14,7 +14,7 @@
 #    include "xbase/x_integer.h"
 #    include "xbase/x_memory.h"
 #    include "xbase/x_runes.h"
-#    include "xfile/x_file.h"
+#    include "xfile/private/x_file.h"
 
 namespace xcore
 {

@@ -1,12 +1,12 @@
-#ifndef __XFILE_FILE_H__
-#define __XFILE_FILE_H__
+#ifndef __XFILE_FILE_PRIVATE_H__
+#define __XFILE_FILE_PRIVATE_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
 #endif
 
 #include "xbase/x_debug.h"
-#include "xfile/private/x_enums.h"
+#include "xfile/private/x_types.h"
 
 namespace xcore
 {
@@ -14,13 +14,6 @@ namespace xcore
 
     namespace xfile
     {
-        struct file_handle_t
-        {
-            inline file_handle_t() : m_handle(nullptr) {}
-            inline file_handle_t(void* h) : m_handle(h) {}
-            void* m_handle;
-        };
-
         file_handle_t file_open(crunes_t const& path, file_mode_t mode);
         bool          file_close(file_handle_t& file);
 		void          file_flush(file_handle_t& file);
@@ -35,4 +28,4 @@ namespace xcore
     } // namespace xfile
 } // namespace xcore
 
-#endif // __XFILE_FILE_H__
+#endif // __XFILE_FILE_PRIVATE_H__

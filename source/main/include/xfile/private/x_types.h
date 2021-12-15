@@ -1,5 +1,5 @@
-#ifndef __XFILE_FILE_ENUMS_H__
-#define __XFILE_FILE_ENUMS_H__
+#ifndef __XFILE_FILE_TYPES_PRIVATE_H__
+#define __XFILE_FILE_TYPES_PRIVATE_H__
 #include "xbase/x_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
@@ -9,6 +9,13 @@
 
 namespace xcore
 {
+    struct file_handle_t
+    {
+        inline file_handle_t() : m_handle(nullptr) {}
+        inline file_handle_t(void* h) : m_handle(h) {}
+        void* m_handle;
+    };
+
 	/// the file modes
 	enum file_mode_t
 	{
@@ -43,4 +50,4 @@ namespace xcore
 
 } // namespace xcore
 
-#endif // __XFILE_FILE_ENUMS_H__
+#endif // __XFILE_FILE_TYPES_PRIVATE_H__

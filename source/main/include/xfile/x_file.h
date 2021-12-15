@@ -8,12 +8,10 @@
 #include "xbase/x_debug.h"
 #include "xbase/x_stream.h"
 
-#include "xfile/private/x_enums.h"
-#include "xfile/private/x_file.h"
+#include "xfile/private/x_types.h"
 
 namespace xcore
 {
-
 	class file_stream_t : public istream_t
 	{
 	public:
@@ -37,7 +35,7 @@ namespace xcore
 		virtual s64 vread(xbyte* buffer, s64 count);
 		virtual s64 vwrite(const xbyte* buffer, s64 count);
 
-		xfile::file_handle_t m_filehandle;
+		file_handle_t m_filehandle;
 		s64 m_offset;
 		u32 m_caps;
 	};
