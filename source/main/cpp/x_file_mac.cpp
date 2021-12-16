@@ -71,7 +71,7 @@ namespace xcore
             // convert to utf8?
 
             // open it, @note need absolute path
-            s64 fd = open(path.m_runes.m_ascii.m_str, flags, modes);
+            s64 fd = open(path.m_ascii.m_str, flags, modes);
             if (fd < 0 && (mode & FILE_MODE_CREAT) && (errno != EPERM && errno != EACCES))
             {
                 // open it again after creating the file directory

@@ -122,27 +122,27 @@ namespace xcore
             if (path.m_type == utf16::TYPE)
             {
                 // init file
-                file = CreateFileW((LPCWSTR)path.m_runes.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
+                file = CreateFileW((LPCWSTR)path.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
                 if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
-                    mkdir(path.m_runes.m_utf16.m_str);
+                    mkdir(path.m_utf16.m_str);
 
                     // init it again
-                    file = CreateFileW((LPCWSTR)path.m_runes.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
+                    file = CreateFileW((LPCWSTR)path.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
                 }
             }
             else if (path.m_type == ascii::TYPE)
             {
                 // init file
-                file = CreateFile((LPCSTR)path.m_runes.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
+                file = CreateFile((LPCSTR)path.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
                 if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
-                    mkdir(path.m_runes.m_ascii.m_str);
+                    mkdir(path.m_ascii.m_str);
 
                     // init it again
-                    file = CreateFile((LPCSTR)path.m_runes.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
+                    file = CreateFile((LPCSTR)path.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
                 }
             }
             else if (path.m_type == utf8::TYPE || path.m_type == utf32::TYPE)
