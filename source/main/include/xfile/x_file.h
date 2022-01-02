@@ -26,6 +26,7 @@ namespace xcore
 		virtual bool vcanSeek() const;
 		virtual bool vcanRead() const;
 		virtual bool vcanWrite() const;
+		virtual bool vcanZeroCopy() const;
 		virtual void vflush();
 		virtual void vclose();
 		virtual u64  vgetLength() const;
@@ -33,6 +34,7 @@ namespace xcore
 		virtual s64  vsetPos(s64 pos);
 		virtual s64  vgetPos() const;
 		virtual s64 vread(xbyte* buffer, s64 count);
+		virtual s64 vread0(xbyte const*& buffer, s64 count);
 		virtual s64 vwrite(const xbyte* buffer, s64 count);
 
 		file_handle_t m_filehandle;

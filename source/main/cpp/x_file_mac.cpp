@@ -36,14 +36,14 @@ namespace xcore
 
             // flags
             u64 flags = 0;
-            if (mode & FILE_MODE_RO)
-                flags |= O_RDONLY;
-            else if (mode & FILE_MODE_WO)
-                flags |= O_WRONLY;
-            else if (mode & FILE_MODE_RW)
+            if ((mode & FILE_MODE_RW) == FILE_MODE_RW)
                 flags |= O_RDWR;
+            else if (mode & FILE_MODE_WRITE)
+                flags |= O_WRONLY;
+            else if (mode & FILE_MODE_READ)
+                flags |= O_RDONLY;
 
-            if (mode & FILE_MODE_CREAT)
+            if (mode & FILE_MODE_CREATE)
                 flags |= O_CREAT;
             if (mode & FILE_MODE_APPEND)
                 flags |= O_APPEND;
@@ -61,7 +61,7 @@ namespace xcore
 
             // modes
             u64 modes = 0;
-            if (mode & FILE_MODE_CREAT)
+            if (mode & FILE_MODE_CREATE)
             {
                 // 0644: -rw-r--r--
                 modes = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
@@ -72,7 +72,7 @@ namespace xcore
 
             // open it, @note need absolute path
             s64 fd = open(path.m_ascii.m_str, flags, modes);
-            if (fd < 0 && (mode & FILE_MODE_CREAT) && (errno != EPERM && errno != EACCES))
+            if (fd < 0 && (mode & FILE_MODE_CREATE) && (errno != EPERM && errno != EACCES))
             {
                 // open it again after creating the file directory
                 //char dir[cMaxPath];
@@ -180,8 +180,8 @@ namespace xcore
 			// ok
 			return real;
 		}
- 
-        s64 file_seek(file_handle_t& file, s64 offset, u64 mode)
+
+        s64 file_seek(file_handle_t& file, s64 offset, seek_mode_t mode)
         {
             // check
             if (file.m_handle == nullptr)
@@ -197,7 +197,7 @@ namespace xcore
             if (file.m_handle == nullptr)
                 return -1;
             // the offset
-            return file_seek(file, (s64)0, SEEK_CUR);
+            return file_seek(file, (s64)0, SEEK_MODE_CUR);
         }
 
         s64 file_size(file_handle_t file)
