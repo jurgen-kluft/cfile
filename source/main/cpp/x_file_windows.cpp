@@ -78,9 +78,9 @@ namespace xcore
             DWORD access = GENERIC_READ;
             if ((mode & FILE_MODE_RW)==FILE_MODE_RW)
                 access = GENERIC_READ | GENERIC_WRITE;
-            else if (mode & FILE_MODE_WO)
+            else if (mode & FILE_MODE_WRITE)
                 access = GENERIC_WRITE;
-            else if (mode & FILE_MODE_RO)
+            else if (mode & FILE_MODE_READ)
                 access = GENERIC_READ;
 
             // init share
