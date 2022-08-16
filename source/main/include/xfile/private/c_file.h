@@ -1,12 +1,12 @@
 #ifndef __XFILE_FILE_PRIVATE_H__
 #define __XFILE_FILE_PRIVATE_H__
-#include "xbase/x_target.h"
+#include "cbase/c_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
 #endif
 
-#include "xbase/x_debug.h"
-#include "xfile/private/x_types.h"
+#include "cbase/c_debug.h"
+#include "cfile/private/c_types.h"
 
 namespace ncore
 {

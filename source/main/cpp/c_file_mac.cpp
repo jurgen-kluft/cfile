@@ -1,4 +1,4 @@
-#include "xbase/x_target.h"
+#include "cbase/c_target.h"
 
 #if defined TARGET_MAC
 
@@ -11,10 +11,10 @@
 #    include <unistd.h>
 #    include <errno.h>
 
-#    include "xbase/x_integer.h"
-#    include "xbase/x_memory.h"
-#    include "xbase/x_runes.h"
-#    include "xfile/private/x_file.h"
+#    include "xbase/c_integer.h"
+#    include "xbase/c_memory.h"
+#    include "xbase/c_runes.h"
+#    include "xfile/private/c_file.h"
 
 namespace ncore
 {

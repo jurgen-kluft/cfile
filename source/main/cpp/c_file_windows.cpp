@@ -1,4 +1,4 @@
-#include "xbase/x_target.h"
+#include "cbase/c_target.h"
 
 #if defined TARGET_PC
 
@@ -8,9 +8,9 @@
 #    include <windows.h>
 #    include <stdio.h>
 
-#    include "xbase/x_runes.h"
-#    include "xbase/x_memory.h"
-#    include "xfile/private/x_file.h"
+#    include "xbase/c_runes.h"
+#    include "xbase/c_memory.h"
+#    include "xfile/private/c_file.h"
 
 namespace ncore
 {
