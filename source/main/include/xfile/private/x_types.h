@@ -7,7 +7,7 @@
 
 #include "xbase/x_debug.h"
 
-namespace xcore
+namespace ncore
 {
     struct file_handle_t
     {
@@ -48,6 +48,6 @@ namespace xcore
     };
 
 
-} // namespace xcore
+} // namespace ncore
 
 #endif // __XFILE_FILE_TYPES_PRIVATE_H__

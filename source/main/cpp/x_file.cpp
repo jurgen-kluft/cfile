@@ -5,7 +5,7 @@
 #include "xfile/private/x_file.h"
 #include "xfile/x_file.h"
 
-namespace xcore
+namespace ncore
 {
     enum file_caps_t
     {
@@ -86,20 +86,20 @@ namespace xcore
         return xfile::file_offset(m_filehandle);
     }
 
-    s64  file_stream_t::vread(xbyte* buffer, s64 count)
+    s64  file_stream_t::vread(u8* buffer, s64 count)
     {
         return xfile::file_read(m_filehandle, buffer, count);
     }
 
-    s64  file_stream_t::vread0(xbyte const*& buffer, s64 count)
+    s64  file_stream_t::vread0(u8 const*& buffer, s64 count)
     {
         buffer = nullptr;
         return 0;
     }
 
-    s64  file_stream_t::vwrite(const xbyte* buffer, s64 count)
+    s64  file_stream_t::vwrite(const u8* buffer, s64 count)
     {
         return xfile::file_write(m_filehandle, buffer, count);
     }
 
-} // namespace xcore
+} // namespace ncore

@@ -3,7 +3,7 @@
 #include "xfile/x_file.h"
 #include "xunittest/xunittest.h"
 
-using namespace xcore;
+using namespace ncore;
 
 UNITTEST_SUITE_BEGIN(test_file_stream)
 {

@@ -13,9 +13,9 @@ UNITTEST_SUITE_LIST(xFileIOUnitTest);
 UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_file);
 UNITTEST_SUITE_DECLARE(xFileIOUnitTest, test_file_stream);
 
-namespace xcore
+namespace ncore
 {
-	class UnitTestAssertHandler : public xcore::asserthandler_t
+	class UnitTestAssertHandler : public ncore::asserthandler_t
 	{
 	public:
 		UnitTestAssertHandler()
@@ -30,7 +30,7 @@ namespace xcore
 			return false;
 		}
 
-		xcore::s32		NumberOfAsserts;
+		ncore::s32		NumberOfAsserts;
 	};
 
 	class UnitTestAllocator : public UnitTest::Allocator
@@ -64,33 +64,33 @@ namespace xcore
 
 		virtual void		v_release()
 		{
-			mAllocator = NULL;
+			mAllocator = nullptr;
 		}
 	};
 }
 
-xcore::alloc_t *gTestAllocator = NULL;
-xcore::UnitTestAssertHandler gAssertHandler;
+ncore::alloc_t *gTestAllocator = nullptr;
+ncore::UnitTestAssertHandler gAssertHandler;
 
 bool gRunUnitTest(UnitTest::TestReporter& reporter)
 {
 	xbase::init();
 
 #ifdef TARGET_DEBUG
-	xcore::context_t::set_assert_handler(&gAssertHandler);
+	ncore::context_t::set_assert_handler(&gAssertHandler);
 #endif
-	xcore::console->write("Configuration: ");
-	xcore::console->setColor(xcore::console_t::YELLOW);
-	xcore::console->writeLine(TARGET_FULL_DESCR_STR);
-	xcore::console->setColor(xcore::console_t::NORMAL);
+	ncore::console->write("Configuration: ");
+	ncore::console->setColor(ncore::console_t::YELLOW);
+	ncore::console->writeLine(TARGET_FULL_DESCR_STR);
+	ncore::console->setColor(ncore::console_t::NORMAL);
 
-	xcore::alloc_t* systemAllocator = xcore::context_t::system_alloc();
-	xcore::UnitTestAllocator unittestAllocator( systemAllocator );
+	ncore::alloc_t* systemAllocator = ncore::context_t::system_alloc();
+	ncore::UnitTestAllocator unittestAllocator( systemAllocator );
 	UnitTest::SetAllocator(&unittestAllocator);
 
-	xcore::TestAllocator testAllocator(systemAllocator);
+	ncore::TestAllocator testAllocator(systemAllocator);
 	gTestAllocator = &testAllocator;
-	xcore::context_t::set_system_alloc(&testAllocator);
+	ncore::context_t::set_system_alloc(&testAllocator);
 
 	int r = UNITTEST_SUITE_RUN(reporter, xFileIOUnitTest);
 	if (UnitTest::GetNumAllocations()!=0)
@@ -101,8 +101,8 @@ bool gRunUnitTest(UnitTest::TestReporter& reporter)
 
 	gTestAllocator->release();
 
-	UnitTest::SetAllocator(NULL);
-	xcore::context_t::set_system_alloc(systemAllocator);
+	UnitTest::SetAllocator(nullptr);
+	ncore::context_t::set_system_alloc(systemAllocator);
 
 	xbase::exit();
 	return r==0;

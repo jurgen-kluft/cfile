@@ -16,7 +16,7 @@
 #    include "xbase/x_runes.h"
 #    include "xfile/private/x_file.h"
 
-namespace xcore
+namespace ncore
 {
     namespace xfile
     {
@@ -104,7 +104,7 @@ namespace xcore
 			// flush?
 		}
 
-        s64 file_read(file_handle_t& file, xbyte* data, u64 size)
+        s64 file_read(file_handle_t& file, u8* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -114,7 +114,7 @@ namespace xcore
             return read(fh2fd(file), data, size);
         }
 
-        s64 file_write(file_handle_t& file, xbyte const* data, u64 size)
+        s64 file_write(file_handle_t& file, u8 const* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -125,7 +125,7 @@ namespace xcore
         }
 
 
-		s64 file_pread(file_handle_t& file, xbyte* data, u64 size, s64 offset)
+		s64 file_pread(file_handle_t& file, u8* data, u64 size, s64 offset)
 		{
 			// check
 			if (file.m_handle == nullptr || data == nullptr)
@@ -153,7 +153,7 @@ namespace xcore
 			return real;
 		}
 
-		s64 file_pwrite(file_handle_t& file, xbyte const* data, u64 size, s64 offset)
+		s64 file_pwrite(file_handle_t& file, u8 const* data, u64 size, s64 offset)
 		{
 			// check
 			if (file.m_handle == nullptr || data == nullptr)
@@ -218,6 +218,6 @@ namespace xcore
 
 
     } // namespace xfile
-} // namespace xcore
+} // namespace ncore
 
 #endif

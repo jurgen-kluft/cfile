@@ -12,7 +12,7 @@
 #    include "xbase/x_memory.h"
 #    include "xfile/private/x_file.h"
 
-namespace xcore
+namespace ncore
 {
     namespace xfile
     {
@@ -188,7 +188,7 @@ namespace xcore
 
 		}
 
-        s64 file_read(file_handle_t& file, xbyte* data, u64 size)
+        s64 file_read(file_handle_t& file, u8* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -201,7 +201,7 @@ namespace xcore
             return ReadFile((HANDLE)file.m_handle, data, (DWORD)size, &real_size, nullptr) ? (s64)real_size : -1;
         }
 
-        s64 file_write(file_handle_t& file, xbyte const* data, u64 size)
+        s64 file_write(file_handle_t& file, u8 const* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -214,7 +214,7 @@ namespace xcore
             return WriteFile((HANDLE)file.m_handle, data, (DWORD)size, &real_size, nullptr) ? (s64)real_size : -1;
         }
 
-        s64 file_pread(file_handle_t& file, xbyte* data, u64 size, s64 offset)
+        s64 file_pread(file_handle_t& file, u8* data, u64 size, s64 offset)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -242,7 +242,7 @@ namespace xcore
             return real;
         }
 
-        s64 file_pwrite(file_handle_t& file, xbyte const* data, u64 size, s64 offset)
+        s64 file_pwrite(file_handle_t& file, u8 const* data, u64 size, s64 offset)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -307,6 +307,6 @@ namespace xcore
 
 
     } // namespace xfile
-} // namespace xcore
+} // namespace ncore
 
 #endif

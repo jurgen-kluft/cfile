@@ -10,7 +10,7 @@
 
 #include "xfile/private/x_types.h"
 
-namespace xcore
+namespace ncore
 {
 	class file_stream_t : public istream_t
 	{
@@ -33,15 +33,15 @@ namespace xcore
 		virtual void vsetLength(u64 length);
 		virtual s64  vsetPos(s64 pos);
 		virtual s64  vgetPos() const;
-		virtual s64 vread(xbyte* buffer, s64 count);
-		virtual s64 vread0(xbyte const*& buffer, s64 count);
-		virtual s64 vwrite(const xbyte* buffer, s64 count);
+		virtual s64 vread(u8* buffer, s64 count);
+		virtual s64 vread0(u8 const*& buffer, s64 count);
+		virtual s64 vwrite(const u8* buffer, s64 count);
 
 		file_handle_t m_filehandle;
 		s64 m_offset;
 		u32 m_caps;
 	};
 
-} // namespace xcore
+} // namespace ncore
 
 #endif ///< __XFILE_FILE_PUBLIC_H__
