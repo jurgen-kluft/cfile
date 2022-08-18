@@ -11,9 +11,9 @@
 #    include <unistd.h>
 #    include <errno.h>
 
-#    include "xbase/c_integer.h"
-#    include "xbase/c_memory.h"
-#    include "xbase/c_runes.h"
+#    include "cbase/c_integer.h"
+#    include "cbase/c_memory.h"
+#    include "cbase/c_runes.h"
 #    include "xfile/private/c_file.h"
 
 namespace ncore
