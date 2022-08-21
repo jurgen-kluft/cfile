@@ -1,5 +1,5 @@
-#ifndef __XFILE_FILE_TYPES_PRIVATE_H__
-#define __XFILE_FILE_TYPES_PRIVATE_H__
+#ifndef __CFILE_FILE_TYPES_PRIVATE_H__
+#define __CFILE_FILE_TYPES_PRIVATE_H__
 #include "cbase/c_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
@@ -50,4 +50,4 @@ namespace ncore
 
 } // namespace ncore
 
-#endif // __XFILE_FILE_TYPES_PRIVATE_H__
+#endif // __CFILE_FILE_TYPES_PRIVATE_H__
