@@ -10,11 +10,11 @@
 
 #    include "cbase/c_runes.h"
 #    include "cbase/c_memory.h"
-#    include "xfile/private/c_file.h"
+#    include "cfile/private/c_file.h"
 
 namespace ncore
 {
-    namespace xfile
+    namespace nfile
     {
         const s32 cMaxPath = 512;
 

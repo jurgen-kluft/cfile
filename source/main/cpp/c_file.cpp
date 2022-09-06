@@ -15,7 +15,7 @@ namespace ncore
 
     bool file_stream_t::open(crunes_t const& filepath, file_mode_t mode)
     {
-        m_filehandle = xfile::file_open(filepath, mode);
+        m_filehandle = nfile::file_open(filepath, mode);
         return m_filehandle.m_handle != nullptr;
     }
 
@@ -58,37 +58,37 @@ namespace ncore
 
     void file_stream_t::vflush()
     {
-        xfile::file_flush(m_filehandle);
+        nfile::file_flush(m_filehandle);
     }
 
     void file_stream_t::vclose()
     {
-        xfile::file_close(m_filehandle);
+        nfile::file_close(m_filehandle);
     }
 
     u64  file_stream_t::vgetLength() const
     {
-        return xfile::file_size(m_filehandle);
+        return nfile::file_size(m_filehandle);
     }
 
     void file_stream_t::vsetLength(u64 length)
     {
-        xfile::file_seek(m_filehandle, length, SEEK_MODE_BEG);
+        nfile::file_seek(m_filehandle, length, SEEK_MODE_BEG);
     }
 
     s64  file_stream_t::vsetPos(s64 pos)
     {
-        return xfile::file_seek(m_filehandle, pos, SEEK_MODE_BEG);
+        return nfile::file_seek(m_filehandle, pos, SEEK_MODE_BEG);
     }
 
     s64  file_stream_t::vgetPos() const
     {
-        return xfile::file_offset(m_filehandle);
+        return nfile::file_offset(m_filehandle);
     }
 
     s64  file_stream_t::vread(u8* buffer, s64 count)
     {
-        return xfile::file_read(m_filehandle, buffer, count);
+        return nfile::file_read(m_filehandle, buffer, count);
     }
 
     s64  file_stream_t::vread0(u8 const*& buffer, s64 count)
@@ -99,7 +99,7 @@ namespace ncore
 
     s64  file_stream_t::vwrite(const u8* buffer, s64 count)
     {
-        return xfile::file_write(m_filehandle, buffer, count);
+        return nfile::file_write(m_filehandle, buffer, count);
     }
 
 } // namespace ncore

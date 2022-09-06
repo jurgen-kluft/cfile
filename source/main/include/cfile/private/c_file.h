@@ -12,7 +12,7 @@ namespace ncore
 {
     struct crunes_t;
 
-    namespace xfile
+    namespace nfile
     {
         file_handle_t file_open(crunes_t const& path, file_mode_t mode);
         bool          file_close(file_handle_t& file);
