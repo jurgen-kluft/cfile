@@ -1,3 +1,5 @@
-# xfile
+# cfile
 
-Cross platform file library (BETA; still under construction)
+Cross platform library for basic file IO (Alpha; not fully tested but working)
+
+

@@ -5,23 +5,22 @@
 #    pragma once
 #endif
 
-#include "cbase/c_debug.h"
 #include "cbase/c_stream.h"
 
 #include "cfile/private/c_types.h"
 
 namespace ncore
 {
-	class file_stream_t : public istream_t
+	class file_t : public istream_t
 	{
 	public:
-		file_stream_t();
+		file_t();
 
 		bool open(crunes_t const& filepath, file_mode_t mode);
 		bool isOpen() const;
 
 	protected:
-		file_stream_t& operator=(const file_stream_t&);
+		file_t& operator=(const file_t&);
 
 		virtual bool vcanSeek() const;
 		virtual bool vcanRead() const;

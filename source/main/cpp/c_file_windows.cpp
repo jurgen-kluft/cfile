@@ -148,6 +148,7 @@ namespace ncore
             else if (path.m_type == utf8::TYPE || path.m_type == utf32::TYPE)
             {
                 // first convert to utf16 and then run the wchar functions
+                return file_handle_t(nullptr);
             }
 
             // append?
