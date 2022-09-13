@@ -5,7 +5,7 @@
 
 using namespace ncore;
 
-UNITTEST_SUITE_BEGIN(test_file)
+UNITTEST_SUITE_BEGIN(test_nfile)
 {
     UNITTEST_FIXTURE(main)
     {
@@ -14,8 +14,8 @@ UNITTEST_SUITE_BEGIN(test_file)
 
 		UNITTEST_TEST(file_create)
 		{
-			file_handle_t fh = xfile::file_open("test.txt", FILE_MODE_CREATE);
-			xfile::file_close(fh);
+			file_handle_t fh = nfile::file_open("test.txt", FILE_MODE_CREATE);
+			nfile::file_close(fh);
 		}
     }
 }

@@ -5,7 +5,7 @@
 
 using namespace ncore;
 
-UNITTEST_SUITE_BEGIN(test_file_stream)
+UNITTEST_SUITE_BEGIN(test_file)
 {
     UNITTEST_FIXTURE(main)
     {
@@ -14,7 +14,7 @@ UNITTEST_SUITE_BEGIN(test_file_stream)
 
 		UNITTEST_TEST(open)
 		{
-			file_stream_t fs;
+			file_t fs;
 			fs.open("test.txt", FILE_MODE_CREATE);
 			fs.close();
 		}
