@@ -13,6 +13,8 @@ namespace ncore
     {
         inline file_handle_t() : m_handle(nullptr) {}
         inline file_handle_t(void* h) : m_handle(h) {}
+
+        bool isValid() const { return m_handle != nullptr; }
         void* m_handle;
     };
 

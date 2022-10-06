@@ -170,7 +170,7 @@ namespace ncore
             return fh;
         }
 
-        bool file_close(file_handle_t& file)
+        bool file_close(file_handle_t file)
         {
             // check
             if (file.m_handle == nullptr)
@@ -180,7 +180,7 @@ namespace ncore
             return CloseHandle((HANDLE)file.m_handle) ? true : false;
         }
 
-		void file_flush(file_handle_t& file)
+		void file_flush(file_handle_t file)
 		{
 			if (file.m_handle == nullptr)
 				return;
@@ -189,7 +189,7 @@ namespace ncore
 
 		}
 
-        s64 file_read(file_handle_t& file, u8* data, u64 size)
+        s64 file_read(file_handle_t file, u8* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -202,7 +202,7 @@ namespace ncore
             return ReadFile((HANDLE)file.m_handle, data, (DWORD)size, &real_size, nullptr) ? (s64)real_size : -1;
         }
 
-        s64 file_write(file_handle_t& file, u8 const* data, u64 size)
+        s64 file_write(file_handle_t file, u8 const* data, u64 size)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -215,7 +215,7 @@ namespace ncore
             return WriteFile((HANDLE)file.m_handle, data, (DWORD)size, &real_size, nullptr) ? (s64)real_size : -1;
         }
 
-        s64 file_pread(file_handle_t& file, u8* data, u64 size, s64 offset)
+        s64 file_pread(file_handle_t file, u8* data, u64 size, s64 offset)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -243,7 +243,7 @@ namespace ncore
             return real;
         }
 
-        s64 file_pwrite(file_handle_t& file, u8 const* data, u64 size, s64 offset)
+        s64 file_pwrite(file_handle_t file, u8 const* data, u64 size, s64 offset)
         {
             // check
             if (file.m_handle == nullptr || data == nullptr)
@@ -272,7 +272,7 @@ namespace ncore
         }
 
 
-        s64 file_seek(file_handle_t& file, s64 offset, seek_mode_t mode)
+        s64 file_seek(file_handle_t file, s64 offset, seek_mode_t mode)
         {
             // check
             if (file.m_handle == nullptr)
