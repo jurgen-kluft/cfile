@@ -2,7 +2,6 @@
 #include "cbase/c_integer.h"
 #include "cbase/c_memory.h"
 
-#include "cfile/private/c_file.h"
 #include "cfile/c_file.h"
 
 namespace ncore
@@ -15,7 +14,7 @@ namespace ncore
 
     bool file_t::open(crunes_t const& filepath, file_mode_t mode)
     {
-        m_filehandle = nfile::file_open(filepath, mode);
+        m_filehandle = file_open(filepath, mode);
         return m_filehandle.m_handle != nullptr;
     }
 
@@ -58,37 +57,37 @@ namespace ncore
 
     void file_t::vflush()
     {
-        nfile::file_flush(m_filehandle);
+        file_flush(m_filehandle);
     }
 
     void file_t::vclose()
     {
-        nfile::file_close(m_filehandle);
+        file_close(m_filehandle);
     }
 
     u64  file_t::vgetLength() const
     {
-        return nfile::file_size(m_filehandle);
+        return file_size(m_filehandle);
     }
 
     void file_t::vsetLength(u64 length)
     {
-        nfile::file_seek(m_filehandle, length, SEEK_MODE_BEG);
+        file_seek(m_filehandle, length, SEEK_MODE_BEG);
     }
 
     s64  file_t::vsetPos(s64 pos)
     {
-        return nfile::file_seek(m_filehandle, pos, SEEK_MODE_BEG);
+        return file_seek(m_filehandle, pos, SEEK_MODE_BEG);
     }
 
     s64  file_t::vgetPos() const
     {
-        return nfile::file_offset(m_filehandle);
+        return file_offset(m_filehandle);
     }
 
     s64  file_t::vread(u8* buffer, s64 count)
     {
-        return nfile::file_read(m_filehandle, buffer, count);
+        return file_read(m_filehandle, buffer, count);
     }
 
     s64  file_t::vread0(u8 const*& buffer, s64 count)
@@ -99,7 +98,7 @@ namespace ncore
 
     s64  file_t::vwrite(const u8* buffer, s64 count)
     {
-        return nfile::file_write(m_filehandle, buffer, count);
+        return file_write(m_filehandle, buffer, count);
     }
 
 } // namespace ncore

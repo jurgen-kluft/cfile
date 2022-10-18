@@ -48,7 +48,7 @@ namespace ncore
 	public:
 							TestAllocator(alloc_t* allocator) : mAllocator(allocator) { }
 
-		virtual const char*	name() const										{ return "xcore unittest test heap allocator"; }
+		virtual const char*	name() const										{ return "ncore unittest test heap allocator"; }
 
 		virtual void*		v_allocate(u32 size, u32 alignment)
 		{

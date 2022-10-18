@@ -14,7 +14,7 @@
 #    include "cbase/c_integer.h"
 #    include "cbase/c_memory.h"
 #    include "cbase/c_runes.h"
-#    include "cfile/private/c_file.h"
+#    include "cfile/c_file.h"
 
 namespace ncore
 {
