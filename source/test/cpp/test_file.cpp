@@ -1,9 +1,12 @@
 #include "cbase/c_allocator.h"
 #include "cbase/c_runes.h"
-#include "cfile/private/c_file.h"
+
+#include "cfile/c_file.h"
+
 #include "cunittest/cunittest.h"
 
 using namespace ncore;
+using namespace ncore::nfile;
 
 UNITTEST_SUITE_BEGIN(test_nfile)
 {

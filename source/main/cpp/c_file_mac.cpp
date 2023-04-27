@@ -71,7 +71,7 @@ namespace ncore
             // convert to utf8?
 
             // open it, @note need absolute path
-            s64 fd = open(path.m_ascii.m_str, flags, modes);
+            s64 fd = open(&path.m_ascii.m_bos[path.m_ascii.m_str], flags, modes);
             if (fd < 0 && (mode & FILE_MODE_CREATE) && (errno != EPERM && errno != EACCES))
             {
                 // open it again after creating the file directory
@@ -87,7 +87,7 @@ namespace ncore
             return fd2fh(fd);
         }
 
-        bool file_close(file_handle_t& file)
+        bool file_close(file_handle_t file)
         {
             if (file.m_handle == nullptr)
                 return -1;

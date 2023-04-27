@@ -3,14 +3,9 @@
 #include "cbase/c_console.h"
 #include "cbase/c_context.h"
 
-#include "cfile/c_file.h"
-
 #include "cunittest/cunittest.h"
 
-UNITTEST_SUITE_LIST(cUnitTest);
-
-UNITTEST_SUITE_DECLARE(cUnitTest, test_nfile);
-UNITTEST_SUITE_DECLARE(cUnitTest, test_file);
+UNITTEST_SUITE_LIST
 
 namespace ncore
 {
@@ -22,7 +17,7 @@ namespace ncore
 
         virtual bool handle_assert(u32& flags, const char* fileName, s32 lineNumber, const char* exprString, const char* messageString)
         {
-            UnitTest::reportAssert(exprString, fileName, lineNumber);
+            UnitTest::ReportAssert(exprString, fileName, lineNumber);
             NumberOfAsserts++;
             return false;
         }
