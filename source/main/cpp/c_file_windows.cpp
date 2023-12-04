@@ -123,33 +123,33 @@ namespace ncore
             DWORD attr = FILE_ATTRIBUTE_NORMAL;
 
             HANDLE file = nullptr;
-            if (path.m_type == utf16::TYPE)
+            if (path.get_type() == utf16::TYPE)
             {
                 // init file
-                file = CreateFileW((LPCWSTR)path.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
+                file = CreateFileW((LPCWSTR)(path.m_utf16.m_bos + path.m_utf16.m_str), access, share, nullptr, cflag, attr, nullptr);
                 if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
-                    nfile::mkdir(path.m_utf16.m_str);
+                    nfile::mkdir(path.m_utf16.m_bos + path.m_utf16.m_str);
 
                     // init it again
-                    file = CreateFileW((LPCWSTR)path.m_utf16.m_str, access, share, nullptr, cflag, attr, nullptr);
+                    file = CreateFileW((LPCWSTR)(path.m_utf16.m_bos + path.m_utf16.m_str), access, share, nullptr, cflag, attr, nullptr);
                 }
             }
-            else if (path.m_type == ascii::TYPE)
+            else if (path.get_type() == ascii::TYPE)
             {
                 // init file
-                file = CreateFile((LPCSTR)path.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
+                file = CreateFile((LPCSTR)(path.m_ascii.m_bos + path.m_ascii.m_str), access, share, nullptr, cflag, attr, nullptr);
                 if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
                 {
                     // make directory
-                    nfile::mkdir(path.m_ascii.m_str);
+                    nfile::mkdir(path.m_ascii.m_bos + path.m_ascii.m_str);
 
                     // init it again
-                    file = CreateFile((LPCSTR)path.m_ascii.m_str, access, share, nullptr, cflag, attr, nullptr);
+                    file = CreateFile((LPCSTR)(path.m_ascii.m_bos + path.m_ascii.m_str), access, share, nullptr, cflag, attr, nullptr);
                 }
             }
-            else if (path.m_type == utf8::TYPE || path.m_type == utf32::TYPE)
+            else if (path.get_type() == utf8::TYPE || path.get_type() == utf32::TYPE)
             {
                 // first convert to utf16 and then run the wchar functions
                 return file_handle_t(nullptr);
