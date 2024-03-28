@@ -10,12 +10,9 @@
 
 namespace ncore
 {
-    struct crunes_t;
-
     namespace nfile
     {
-
-        file_handle_t file_open(crunes_t const& path, file_mode_t mode);
+        file_handle_t file_open(const char* path, file_mode_t mode);
         bool          file_close(file_handle_t file);
         void          file_flush(file_handle_t file);
         s64           file_read(file_handle_t file, u8* data, u64 size);
@@ -31,7 +28,7 @@ namespace ncore
         public:
             file_t();
 
-            bool open(crunes_t const& filepath, file_mode_t mode);
+            bool open(const char* filepath, file_mode_t mode);
             bool isOpen() const;
 
         protected:

@@ -68,12 +68,8 @@ namespace ncore
             }
         }
 
-        file_handle_t file_open(crunes_t const& path, file_mode_t mode)
+        file_handle_t file_open(const char* filename, file_mode_t mode)
         {
-            // check
-            if (!path.is_valid())
-                return file_handle_t();
-
             // init access
             DWORD access = GENERIC_READ;
             if ((mode & FILE_MODE_RW) == FILE_MODE_RW)
@@ -122,37 +118,18 @@ namespace ncore
             // init attr
             DWORD attr = FILE_ATTRIBUTE_NORMAL;
 
-            HANDLE file = nullptr;
-            if (path.get_type() == utf16::TYPE)
-            {
-                // init file
-                file = CreateFileW((LPCWSTR)(path.m_utf16.m_bos + path.m_utf16.m_str), access, share, nullptr, cflag, attr, nullptr);
-                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
-                {
-                    // make directory
-                    nfile::mkdir(path.m_utf16.m_bos + path.m_utf16.m_str);
+            // TODO Convert the incoming utf-8 filename to utf-16
 
-                    // init it again
-                    file = CreateFileW((LPCWSTR)(path.m_utf16.m_bos + path.m_utf16.m_str), access, share, nullptr, cflag, attr, nullptr);
-                }
-            }
-            else if (path.get_type() == ascii::TYPE)
+            // init file
+            file = CreateFileW((LPCWSTR)(filename), access, share, nullptr, cflag, attr, nullptr);
+            if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
             {
-                // init file
-                file = CreateFile((LPCSTR)(path.m_ascii.m_bos + path.m_ascii.m_str), access, share, nullptr, cflag, attr, nullptr);
-                if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
-                {
-                    // make directory
-                    nfile::mkdir(path.m_ascii.m_bos + path.m_ascii.m_str);
+                // make directory
+                // TODO pass the wchar_t filename to the mkdir function
+                nfile::mkdir(filename);
 
-                    // init it again
-                    file = CreateFile((LPCSTR)(path.m_ascii.m_bos + path.m_ascii.m_str), access, share, nullptr, cflag, attr, nullptr);
-                }
-            }
-            else if (path.get_type() == utf8::TYPE || path.get_type() == utf32::TYPE)
-            {
-                // first convert to utf16 and then run the wchar functions
-                return file_handle_t(nullptr);
+                // init it again
+                file = CreateFileW((LPCWSTR)(filename), access, share, nullptr, cflag, attr, nullptr);
             }
 
             // append?

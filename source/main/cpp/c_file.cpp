@@ -16,7 +16,7 @@ namespace ncore
 
         file_t::file_t() : m_filehandle(), m_caps(0) {}
 
-        bool file_t::open(crunes_t const& filepath, file_mode_t mode)
+        bool file_t::open(const char* filepath, file_mode_t mode)
         {
             m_filehandle = file_open(filepath, mode);
             return m_filehandle.m_handle != nullptr;

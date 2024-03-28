@@ -25,15 +25,8 @@ namespace ncore
 #    define fd2fh(fd) ((fd) >= 0 ? file_handle_t((void*)((s64)(fd) + 1)) : file_handle_t(nullptr))
 #    define fh2fd(fh) (s64)((fh.m_handle) ? (((s64)(fh.m_handle)) - 1) : -1)
 
-        file_handle_t file_open(crunes_t const& path, file_mode_t mode)
+        file_handle_t file_open(const char* filename, file_mode_t mode)
         {
-            // check
-            if (!path.is_valid())
-                return file_handle_t();
-
-            if (!path.is_valid())
-                return file_handle_t();
-
             // flags
             u64 flags = 0;
             if ((mode & FILE_MODE_RW) == FILE_MODE_RW)
@@ -71,7 +64,7 @@ namespace ncore
             // convert to utf8?
 
             // open it, @note need absolute path
-            s64 fd = open(&path.m_ascii.m_bos[path.m_ascii.m_str], flags, modes);
+            s64 fd = open(filename, flags, modes);
             if (fd < 0 && (mode & FILE_MODE_CREATE) && (errno != EPERM && errno != EACCES))
             {
                 // open it again after creating the file directory
