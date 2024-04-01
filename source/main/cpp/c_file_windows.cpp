@@ -121,7 +121,7 @@ namespace ncore
             // TODO Convert the incoming utf-8 filename to utf-16
 
             // init file
-            file = CreateFileW((LPCWSTR)(filename), access, share, nullptr, cflag, attr, nullptr);
+            HANDLE file = CreateFileW((LPCWSTR)(filename), access, share, nullptr, cflag, attr, nullptr);
             if (file == INVALID_HANDLE_VALUE && (mode & FILE_MODE_CREATE))
             {
                 // make directory
