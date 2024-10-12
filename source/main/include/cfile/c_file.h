@@ -5,7 +5,7 @@
 #    pragma once
 #endif
 
-#include "cbase/c_stream.h"
+#include "ccore/c_stream.h"
 #include "cfile/c_types.h"
 
 namespace ncore
@@ -52,7 +52,7 @@ namespace ncore
             s64           m_offset;
             u32           m_caps;
         };
-        
+
     } // namespace nfile
 } // namespace ncore
 

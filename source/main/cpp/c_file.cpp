@@ -1,7 +1,3 @@
-#include "cbase/c_allocator.h"
-#include "cbase/c_integer.h"
-#include "cbase/c_memory.h"
-
 #include "cfile/c_file.h"
 
 namespace ncore

@@ -8,8 +8,6 @@
 #    include <windows.h>
 #    include <stdio.h>
 
-#    include "cbase/c_runes.h"
-#    include "cbase/c_memory.h"
 #    include "cfile/c_file.h"
 
 namespace ncore

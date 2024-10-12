@@ -1,6 +1,6 @@
 #include "ccore/c_target.h"
 
-#if defined TARGET_MAC
+#if defined TARGET_LINUX
 
 #    include <sys/types.h>
 #    include <sys/stat.h>
@@ -39,6 +39,10 @@ namespace ncore
                 flags |= O_APPEND;
             if (mode & FILE_MODE_TRUNC)
                 flags |= O_TRUNC;
+
+            // dma mode, no cache
+            if (mode & FILE_MODE_DIRECT)
+                flags |= O_DIRECT;
 
             // noblock
             flags |= O_NONBLOCK;
