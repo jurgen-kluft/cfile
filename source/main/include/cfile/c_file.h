@@ -34,19 +34,19 @@ namespace ncore
         protected:
             file_t& operator=(const file_t&);
 
-            virtual bool vcanSeek() const;
-            virtual bool vcanRead() const;
-            virtual bool vcanWrite() const;
-            virtual bool vcanView() const;
-            virtual void vflush();
-            virtual void vclose();
-            virtual u64  vgetLength() const;
-            virtual void vsetLength(u64 length);
-            virtual s64  vsetPos(s64 pos);
-            virtual s64  vgetPos() const;
-            virtual s64  vread(u8* buffer, s64 count);
-            virtual s64  vview(u8 const*& buffer, s64 count);
-            virtual s64  vwrite(const u8* buffer, s64 count);
+            virtual bool v_canSeek() const;
+            virtual bool v_canRead() const;
+            virtual bool v_canWrite() const;
+            virtual bool v_canView() const;
+            virtual void v_flush();
+            virtual void v_close();
+            virtual u64  v_getLength() const;
+            virtual void v_setLength(u64 length);
+            virtual s64  v_setPos(s64 pos);
+            virtual s64  v_getPos() const;
+            virtual s64  v_read(u8* buffer, s64 count);
+            virtual s64  v_view(u8 const*& buffer, s64 count);
+            virtual s64  v_write(const u8* buffer, s64 count);
 
             file_handle_t m_filehandle;
             s64           m_offset;
