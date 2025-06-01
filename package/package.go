@@ -6,27 +6,39 @@ import (
 	cunittest "github.com/jurgen-kluft/cunittest/package"
 )
 
-// GetPackage returns the package object of 'cfile'
+const (
+	repo_path = "github.com\\jurgen-kluft"
+	repo_name = "cfile"
+)
+
 func GetPackage() *denv.Package {
-	// Dependencies
-	unittestpkg := cunittest.GetPackage()
+	name := repo_name
+
+	// dependencies
+	cunittestpkg := cunittest.GetPackage()
 	ccorepkg := ccore.GetPackage()
 
-	// The main (cfile) package
-	mainpkg := denv.NewPackage("cfile")
-	mainpkg.AddPackage(unittestpkg)
+	// main package
+	mainpkg := denv.NewPackage(repo_path, repo_name)
+	mainpkg.AddPackage(cunittestpkg)
 	mainpkg.AddPackage(ccorepkg)
 
-	// 'cfile' library
-	mainlib := denv.SetupCppLibProject("cfile", "github.com\\jurgen-kluft\\cfile")
+	// main library
+	mainlib := denv.SetupCppLibProject(mainpkg, name)
 	mainlib.AddDependencies(ccorepkg.GetMainLib()...)
 
-	// 'cfile' unittest project
-	maintest := denv.SetupDefaultCppTestProject("cfile_test", "github.com\\jurgen-kluft\\cfile")
-	maintest.AddDependencies(unittestpkg.GetMainLib()...)
-	maintest.Dependencies = append(maintest.Dependencies, mainlib)
+	// test library
+	testlib := denv.SetupCppTestLibProject(mainpkg, name)
+	testlib.AddDependencies(ccorepkg.GetTestLib()...)
+	testlib.AddDependencies(cunittestpkg.GetTestLib()...)
+
+	// unittest project
+	maintest := denv.SetupCppTestProject(mainpkg, name)
+	maintest.AddDependencies(cunittestpkg.GetMainLib()...)
+	maintest.AddDependency(testlib)
 
 	mainpkg.AddMainLib(mainlib)
+	mainpkg.AddTestLib(testlib)
 	mainpkg.AddUnittest(maintest)
 	return mainpkg
 }
