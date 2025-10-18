@@ -1,4 +1,5 @@
 #include "ccore/c_target.h"
+#include "ccore/c_memory.h"
 
 #if defined TARGET_MAC
 
@@ -17,7 +18,7 @@ namespace ncore
 {
     namespace nfile
     {
-        const s32 cMaxPath = 512;
+        //const s32 cMaxPath = 512;
 
 #    define fd2fh(fd) ((fd) >= 0 ? file_handle_t((void*)((s64)(fd) + 1)) : file_handle_t(nullptr))
 #    define fh2fd(fh) (s64)((fh.m_handle) ? (((s64)(fh.m_handle)) - 1) : -1)
@@ -192,7 +193,8 @@ namespace ncore
 
             // the file size
             u64         size = 0;
-            struct stat st   = {0};
+            struct stat st;
+            g_memzero(&st, sizeof(st));
             if (!fstat(fh2fd(file), &st))
                 size = st.st_size;
 
