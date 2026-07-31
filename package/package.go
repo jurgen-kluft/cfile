@@ -1,9 +1,9 @@
 package cfile
 
 import (
-	"github.com/jurgen-kluft/ccode/denv"
 	ccore "github.com/jurgen-kluft/ccore/package"
 	cunittest "github.com/jurgen-kluft/cunittest/package"
+	"github.com/jurgen-kluft/gide/denv"
 )
 
 const (
